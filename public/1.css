@@ -1,0 +1,29 @@
+html,body{
+    display: flex;
+    height: 100dvh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1{
+    margin: 0%;
+    color: #f4511e;
+}
+.cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} 
+
+button{
+    color: white;
+    margin-top: 10px; 
+    background-color: #f4511e;
+    border: 0px solid black;
+    border-radius: 4px;
+    padding:5px 8px;
+    font-size: large;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
