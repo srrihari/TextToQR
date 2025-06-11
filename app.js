@@ -1,23 +1,33 @@
 import express from "express";
 import fs from "fs";
+import path from "path";
 import srri from "qr-image";
+import { fileURLToPath } from "url";
 
 const a = express();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// View engine setup
+a.set("view engine", "ejs");
+a.set("views", path.join(__dirname, "views"));
+
 a.use(express.urlencoded({ extended: true }));
-a.use(express.static("public"));
+a.use(express.static(path.join(__dirname, "public")));
 
 a.get("/", (req, res) => {
-  res.render("../views/main.ejs");
+  res.render("main"); // ✅ just the name
 });
 
 a.post("/s", (req, res) => {
   const b = req.body["r"];
-  var qr_svg = srri.image(b);
-  qr_svg.pipe(fs.createWriteStream("public/j.jpg"));
-  res.render("../views/index.ejs");
+  const qr_svg = srri.image(b);
+  qr_svg.pipe(fs.createWriteStream(path.join(__dirname, "public", "j.jpg")));
+  res.render("index"); // ✅ just the name
 });
 
-a.listen(3000, () => {
-  console.log("Running");
+const PORT = process.env.PORT || 3000;
+a.listen(PORT, () => {
+  console.log(`Running on port ${PORT}`);
 });
